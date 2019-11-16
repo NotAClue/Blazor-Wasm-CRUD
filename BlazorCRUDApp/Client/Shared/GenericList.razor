@@ -36,12 +36,3 @@ else
         }
     }
 }
-
-
-@code {
-    [Parameter] public List<TElement> Elements { get; set; }
-    [Parameter] public RenderFragment NullTemplate { get; set; }
-    [Parameter] public RenderFragment EmptyTemplate { get; set; }
-    [Parameter] public RenderFragment WithElementsTemplate { get; set; }
-    [Parameter] public RenderFragment<TElement> WithIndividualElementTemplate { get; set; }
-}
