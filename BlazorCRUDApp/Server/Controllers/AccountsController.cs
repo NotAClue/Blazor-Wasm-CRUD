@@ -42,9 +42,9 @@ namespace BlazorCRUDApp.Server.Controllers
             }
             else
             {
-                return BadRequest("Username or password invalid");
+                ModelState.AddModelError("Email", "Email already in use.");
+                return BadRequest(ModelState);
             }
-
         }
 
         [HttpPost("Login")]

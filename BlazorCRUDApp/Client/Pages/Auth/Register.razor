@@ -9,6 +9,10 @@
 
 <EditForm Model="userInfo" OnValidSubmit="CreateUser">
     <DataAnnotationsValidator />
+    @if (showMessage)
+    {
+        <div class="alert alert-danger">@message</div>
+    }
 
     <div class="form-group">
         <label>Email:</label>
@@ -32,11 +36,21 @@
 
 @code {
     private UserInfo userInfo = new UserInfo();
+    private string message = "No Message";
+    private bool showMessage = false;
 
     async Task CreateUser()
     {
-        var result = await http.PostJsonAsync<UserToken>("api/accounts/create", userInfo);
-        await loginService.Login(result.Token);
-        navigationManager.NavigateTo("");
+        try
+        {
+            var result = await http.PostJsonAsync<UserToken>("api/accounts/create", userInfo);
+            await loginService.Login(result.Token);
+            navigationManager.NavigateTo("");
+        }
+        catch (Exception ex)
+        {
+            showMessage = true;
+            message = ex.Message;
+        }
     }
 }
